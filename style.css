@@ -1,0 +1,252 @@
+/* ============================================================
+   婚禮現場互動賽車大戰 — 迪士尼童話可愛風格主題
+   色彩呼應兩隊吉祥物：
+     屹耳新波藍隊 = 絨毛玩偶的夢幻水藍 + 皇冠銀白
+     小橘隊        = 橘貓的暖橘奶油色
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Fredoka:wght@400;500;600;700&display=swap');
+
+:root {
+  --team-a: #5FC9E8;        /* 水藍：屹耳新波藍隊 */
+  --team-a-deep: #2E9FC9;
+  --team-a-soft: #E3F6FD;
+
+  --team-b: #FFA552;        /* 暖橘：小橘隊 */
+  --team-b-deep: #F3791D;
+  --team-b-soft: #FFEEDD;
+
+  --gold: #FFD369;
+  --gold-deep: #F2A93B;
+  --pink: #FFB6D9;
+  --lavender: #C9B6F7;
+  --mint: #AEEBD9;
+  --bg-dark: #2C2250;
+  --cream: #FFF8EE;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: 'Fredoka', 'Baloo 2', "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", -apple-system, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.font-fun {
+  font-family: 'Baloo 2', 'Fredoka', "Noto Sans TC", sans-serif;
+}
+
+/* ============ 童話感背景：漸層 + 柔和光暈 + 星星 ============ */
+.fairytale-bg {
+  background:
+    radial-gradient(circle at 15% 20%, rgba(255,214,235,.55), transparent 40%),
+    radial-gradient(circle at 85% 15%, rgba(174,235,217,.45), transparent 42%),
+    radial-gradient(circle at 50% 90%, rgba(201,182,247,.4), transparent 45%),
+    linear-gradient(160deg, #2C2250 0%, #3B2E6B 45%, #4A3580 100%);
+}
+
+.sparkle-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.sparkle {
+  position: absolute;
+  font-size: 18px;
+  opacity: .55;
+  animation: twinkle 2.6s ease-in-out infinite;
+  filter: drop-shadow(0 0 4px rgba(255,255,255,.6));
+}
+@keyframes twinkle {
+  0%, 100% { opacity: .2; transform: scale(0.8) rotate(0deg); }
+  50% { opacity: .9; transform: scale(1.15) rotate(15deg); }
+}
+
+/* ============ 可愛泡泡卡片 ============ */
+.cute-card {
+  background: var(--cream);
+  border-radius: 28px;
+  box-shadow: 0 10px 0 rgba(0,0,0,.08), 0 16px 32px rgba(0,0,0,.18);
+}
+
+/* ============ 大螢幕：童話賽道 ============ */
+.track-wrap {
+  position: relative;
+  width: 100%;
+  border-radius: 32px;
+  overflow: hidden;
+  background:
+    repeating-linear-gradient(180deg, #FFE1B8 0px, #FFE1B8 10px, #FFD39A 10px, #FFD39A 20px);
+  border: 8px solid #FFF3DD;
+  box-shadow: 0 0 0 6px var(--gold), 0 20px 40px rgba(0,0,0,.35);
+}
+
+.track-lane {
+  position: relative;
+  height: 46%;
+  background: repeating-linear-gradient(90deg, #F3E3FF 0 60px, #E9D3FF 60px 64px);
+  border-bottom: 4px dashed #FFD369;
+}
+.track-lane:last-child { border-bottom: none; }
+
+.finish-flag {
+  position: absolute;
+  right: 2%;
+  top: 0;
+  bottom: 0;
+  width: 14px;
+  background: repeating-linear-gradient(45deg, #FFD369 0 10px, #fff 10px 20px);
+  z-index: 5;
+  border-radius: 6px;
+  box-shadow: 0 0 12px rgba(255,211,105,.8);
+}
+
+.cloud-deco {
+  position: absolute;
+  font-size: 34px;
+  opacity: .85;
+  animation: floatCloud 7s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes floatCloud {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.kart {
+  position: absolute;
+  top: 50%;
+  transform: translate(-10%, -50%);
+  transition: left 100ms linear;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 10;
+  will-change: left;
+}
+
+.kart-avatar {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  border: 4px solid white;
+  object-fit: cover;
+  background: white;
+  box-shadow: 0 0 0 4px var(--gold), 0 6px 14px rgba(0,0,0,.35);
+}
+
+.kart-crown {
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 22px;
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,.3));
+}
+
+.kart-body {
+  font-size: 46px;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,.4));
+  animation: bob 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes bob {
+  from { transform: translateY(0); }
+  to { transform: translateY(-6px); }
+}
+
+.smoke {
+  position: absolute;
+  left: -18px;
+  top: 60%;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.75);
+  animation: smokeOut 0.6s ease-out infinite;
+}
+@keyframes smokeOut {
+  0% { opacity: .85; transform: scale(0.4) translateX(0); }
+  100% { opacity: 0; transform: scale(1.4) translateX(-20px); }
+}
+
+/* ============ 手機端：點擊按鈕 ============ */
+.tap-button {
+  touch-action: manipulation;
+  user-select: none;
+  transition: transform 60ms ease-out, box-shadow 60ms ease-out;
+}
+.tap-button:active,
+.tap-button.tapped {
+  transform: scale(0.9);
+}
+
+.float-plus {
+  position: absolute;
+  pointer-events: none;
+  font-weight: 800;
+  font-size: 28px;
+  color: var(--gold);
+  text-shadow: 0 2px 6px rgba(0,0,0,.5);
+  animation: floatUp 700ms ease-out forwards;
+  font-family: 'Baloo 2', sans-serif;
+}
+@keyframes floatUp {
+  0% { opacity: 1; transform: translate(-50%, 0) scale(0.8); }
+  30% { transform: translate(-50%, -20px) scale(1.2); }
+  100% { opacity: 0; transform: translate(-50%, -90px) scale(1); }
+}
+
+/* ============ 倒數動畫 ============ */
+.countdown-number {
+  animation: countPop 1s ease-in-out;
+  font-family: 'Baloo 2', sans-serif;
+}
+@keyframes countPop {
+  0% { transform: scale(2.5); opacity: 0; }
+  30% { transform: scale(1); opacity: 1; }
+  80% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0.6); opacity: 0; }
+}
+
+/* ============ 彩帶（童話粉彩色系） ============ */
+.confetti-piece {
+  position: fixed;
+  top: -20px;
+  width: 10px;
+  height: 16px;
+  opacity: 0.95;
+  z-index: 200;
+  animation-name: confettiFall;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+@keyframes confettiFall {
+  0% { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(110vh) rotate(720deg); }
+}
+
+/* ============ 通用淡入 ============ */
+.fade-in { animation: fadeIn 0.4s ease-out; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.pulse-glow {
+  animation: pulseGlow 1.6s ease-in-out infinite;
+}
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,211,105,.6); }
+  50% { box-shadow: 0 0 0 20px rgba(255,211,105,0); }
+}
+
+.wiggle {
+  animation: wiggle 1.8s ease-in-out infinite;
+}
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
