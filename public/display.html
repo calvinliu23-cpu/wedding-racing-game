@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>婚禮賽車大戰 - 大螢幕</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="/css/style.css" />
+<style>
+  html, body { height: 100%; }
+  body { overflow: hidden; }
+</style>
+</head>
+<body class="min-h-screen text-white flex flex-col items-center justify-center p-8 relative fairytale-bg">
+
+  <div class="sparkle-field">
+    <span class="sparkle" style="top:6%; left:8%;">✨</span>
+    <span class="sparkle" style="top:12%; left:92%; animation-delay:.5s;">⭐</span>
+    <span class="sparkle" style="top:50%; left:3%; animation-delay:1s;">💫</span>
+    <span class="sparkle" style="top:85%; left:95%; animation-delay:1.4s;">✨</span>
+    <span class="sparkle" style="top:90%; left:6%; animation-delay:.8s;">⭐</span>
+    <span class="cloud-deco" style="top:5%; left:20%;">☁️</span>
+    <span class="cloud-deco" style="top:8%; left:70%; animation-delay:1.5s;">☁️</span>
+  </div>
+
+  <!-- 階段 1：等待加入 / QR -->
+  <div id="stage-waiting" class="flex flex-col items-center text-center fade-in relative z-10">
+    <h1 class="font-fun text-6xl font-extrabold mb-2">👑 婚禮現場互動賽車大戰 🏎️</h1>
+    <p class="text-2xl text-pink-100/90 mb-10 font-fun">掃描 QR Code，加入你的戰隊！</p>
+
+    <div class="flex items-center gap-16">
+      <div class="text-center cute-card p-5 rounded-3xl">
+        <img id="qrImage" src="" alt="QR Code" class="w-64 h-64 bg-white rounded-2xl p-3" />
+        <p class="mt-3 text-slate-600 text-lg font-fun">或輸入網址：<span id="joinUrl" class="font-bold" style="color:var(--gold-deep);"></span></p>
+      </div>
+
+      <div class="flex gap-10 items-center">
+        <div class="text-center">
+          <div id="waitAvatarA" class="w-28 h-28 rounded-full mx-auto mb-2 flex items-center justify-center text-4xl overflow-hidden border-4" style="background:var(--team-a-soft); border-color:var(--team-a);">👑</div>
+          <div id="waitNameA" class="text-xl font-fun font-bold" style="color:var(--team-a);">屹耳新波藍隊</div>
+          <div id="waitCountA" class="text-4xl font-fun font-extrabold">0</div>
+          <div class="text-pink-100/70 text-sm font-fun">人已加入</div>
+        </div>
+        <div class="text-4xl self-center font-fun font-extrabold wiggle" style="color:var(--gold);">VS</div>
+        <div class="text-center">
+          <div id="waitAvatarB" class="w-28 h-28 rounded-full mx-auto mb-2 flex items-center justify-center text-4xl overflow-hidden border-4" style="background:var(--team-b-soft); border-color:var(--team-b);">🐾</div>
+          <div id="waitNameB" class="text-xl font-fun font-bold" style="color:var(--team-b);">小橘隊</div>
+          <div id="waitCountB" class="text-4xl font-fun font-extrabold">0</div>
+          <div class="text-pink-100/70 text-sm font-fun">人已加入</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 階段 2：倒數 -->
+  <div id="stage-countdown" class="hidden fixed inset-0 flex items-center justify-center bg-black/70 z-50">
+    <div id="bigCountdown" class="countdown-number text-[280px] font-extrabold leading-none" style="color:var(--gold);"></div>
+  </div>
+
+  <!-- 階段 3：比賽中 -->
+  <div id="stage-racing" class="hidden w-full max-w-6xl fade-in relative z-10">
+    <div class="flex justify-between items-end mb-4 px-2 font-fun">
+      <div class="text-left">
+        <div id="raceNameA" class="text-2xl font-extrabold" style="color:var(--team-a);">屹耳新波藍隊</div>
+        <div id="raceClicksA" class="text-5xl font-extrabold">0</div>
+      </div>
+      <div class="text-center">
+        <div class="text-pink-100/70 text-lg">剩餘時間</div>
+        <div id="raceTimer" class="text-7xl font-extrabold tabular-nums" style="color:var(--gold);">90</div>
+      </div>
+      <div class="text-right">
+        <div id="raceNameB" class="text-2xl font-extrabold" style="color:var(--team-b);">小橘隊</div>
+        <div id="raceClicksB" class="text-5xl font-extrabold">0</div>
+      </div>
+    </div>
+
+    <div class="track-wrap" style="height: 320px;">
+      <div class="finish-flag"></div>
+      <div class="track-lane" id="laneA">
+        <div class="kart" id="kartA" style="left:2%;">
+          <div class="smoke"></div>
+          <span class="kart-crown">👑</span>
+          <img id="kartAvatarA" class="kart-avatar hidden" />
+          <div id="kartEmojiA" class="kart-body">🏎️</div>
+        </div>
+      </div>
+      <div class="track-lane" id="laneB">
+        <div class="kart" id="kartB" style="left:2%;">
+          <div class="smoke"></div>
+          <span class="kart-crown">🐾</span>
+          <img id="kartAvatarB" class="kart-avatar hidden" />
+          <div id="kartEmojiB" class="kart-body">🏎️</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 階段 4：結算 -->
+  <div id="stage-finished" class="hidden flex flex-col items-center text-center fade-in relative z-10">
+    <div class="text-3xl font-fun font-extrabold mb-2" style="color:var(--gold);">🏆 比賽結束 🏆</div>
+    <div id="winnerName" class="text-7xl font-fun font-extrabold mb-6"></div>
+    <div class="flex gap-16 mb-8 font-fun">
+      <div class="text-center">
+        <div id="finalNameA" class="text-xl font-bold" style="color:var(--team-a);"></div>
+        <div id="finalClicksA" class="text-5xl font-extrabold"></div>
+      </div>
+      <div class="text-center">
+        <div id="finalNameB" class="text-xl font-bold" style="color:var(--team-b);"></div>
+        <div id="finalClicksB" class="text-5xl font-extrabold"></div>
+      </div>
+    </div>
+    <div class="cute-card px-12 py-6 border-4" style="border-color:var(--gold);">
+      <div class="text-xl font-fun font-bold mb-1" style="color:var(--gold-deep);">👑 MVP 冠軍 👑</div>
+      <div id="mvpName" class="text-4xl font-fun font-extrabold text-slate-800"></div>
+      <div id="mvpClicks" class="text-lg text-slate-500 mt-1 font-fun"></div>
+    </div>
+  </div>
+
+  <div id="confettiLayer" class="fixed inset-0 pointer-events-none z-40"></div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/display.js"></script>
+</body>
+</html>
