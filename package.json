@@ -1,15 +1,11 @@
 {
   "name": "wedding-racing-game",
   "version": "1.1.0",
-  "description": "婚禮現場互動賽車大戰 - Web-based Wedding Racing Game (屹耳新波藍隊 vs 小橘隊)",
-  "private": true,
-  "main": "server/server.js",
+  "description": "婚禮現場互動賽車大戰 - Web-based Wedding Racing Game",
+  "main": "server.js",
   "scripts": {
-    "start": "node server/server.js",
-    "dev": "node server/server.js"
-  },
-  "engines": {
-    "node": ">=18.0.0"
+    "start": "node server.js",
+    "dev": "node server.js"
   },
   "dependencies": {
     "express": "^4.19.2",
